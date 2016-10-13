@@ -1,4 +1,4 @@
-FROM jreckner/docker-libsodium:last
+FROM jreckner/docker-libsodium:1.0.10
 MAINTAINER Fang Qiuming <fangqiuming@outlook.com>
 
 RUN apt-get install -y python-pip
