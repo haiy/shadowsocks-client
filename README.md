@@ -1,15 +1,15 @@
-docker-sslocal
+docker-sslocal with support for Chacha20
 ==================
 
-This Dockerfile builds an image with the Python implementation of [shadowsocks](https://github.com/shadowsocks/shadowsocks) client `sslocal`. Based on Ubuntu 14.04 image.
+The container will run a ss client and expose a socks5 proxy on a local port.
+
+This repository forked from [zhenkyle/docker-sslocal](https://github.com/zhenkyle/docker-sslocal), added support for Chacha20.
 
 Quick Start
 -----------
 
-This image uses ENTRYPOINT to run the containers as an executable. 
+This image uses ENTRYPOINT to run the containers as an executable.
 
-    docker run -d -p 1984:1984 zhenkyle/docker-sslocal -b 0.0.0.0 -s $YOUR_SERVER_IP -p $YOUR_SERVER_PORT -l 1984 -k $SSPASSWORD -m aes-256-cfb
+    docker run -d -p 1984:1984 fangqiuming/docker-sslocal -b 0.0.0.0 -s $SS_SERVER_IP -p $SS_SERVER_PORT -l $SOCKS5_PORT -k $SS_PASSWORD -m chacha20
 
-You can configure the service to run on a port of your choice. Just make sure the port number given to Docker is the same as the one given to shadowsocks. Also, it is  highly recommended that you store the shadowsocks password in an environment variable as shown above. This way the password will not show in plain text when you run `docker ps`.
-
-For more command line options, refer to the [shadowsocks documentation](https://github.com/shadowsocks/shadowsocks)
+For more information see [zhenkyle/docker-sslocal](https://github.com/zhenkyle/docker-sslocal).
