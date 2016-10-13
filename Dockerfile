@@ -6,7 +6,7 @@ FROM ubuntu:14.04.3
 MAINTAINER Zhen Kyle <zhenkyle@gmail.com>
 
 RUN apt-get update && \
-    apt-get install -y python-pip
+    apt-get install -y python-pip wget
 RUN pip install shadowsocks==2.8.2
 RUN wget https://download.libsodium.org/libsodium/releases/LATEST.tar.gz
 RUN tar zxf LATEST.tar.gz
