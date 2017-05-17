@@ -16,8 +16,8 @@ docker run -d -p 8118:8118 shadowsocks \
 ## Start a container with access to proxy 
 ```
 docker run -it --link shadowsocks \
-	-e http_proxy=http://shadowsocks:8118 \
-	-e https_proxy=http://shadowsocks:8118 \
+	-e http_proxy=shadowsocks:8118 \
+	-e https_proxy=shadowsocks:8118 \
 	ubuntu:14.04 bash
 ```
   
