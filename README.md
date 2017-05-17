@@ -1,9 +1,6 @@
 # Shadowsocks/Privoxy Docker container
 Fork of [fangqiuming/docker-sslocal](https://github.com/fangqiuming/docker-sslocal)
 
-This launches a shadowsocks sslocal client and privoxy http_proxy in a container.
-Containers linking to this container can use http_proxy to bypass firewalls.
-
 ## Building and running
 ```
 docker build -t shadowsocks .
