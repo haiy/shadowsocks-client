@@ -1,5 +1,5 @@
 # Shadowsocks/Privoxy Docker container
-Fork of [fangqiuming/docker-sslocal](https://github.com/fangqiuming/docker-sslocal)
+Fork of [fangqiuming/docker-sslocal](https://github.com/fangqiuming/docker-sslocal) but with the addition of privoxy http proxy.
 
 ## Building and running
 ```
