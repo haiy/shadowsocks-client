@@ -4,13 +4,14 @@ Fork of [fangqiuming/docker-sslocal](https://github.com/fangqiuming/docker-ssloc
 ## Building and running
 ```
 docker build -t shadowsocks .
-docker run -d -p 8118:8118 shadowsocks \
-	-b 0.0.0.0 \
-	-s ${SS_SERVER_ADDRESS} \
-	-p ${SS_SERVER_PORT} \
-	-l ${SS_SOCKS5_PORT} \
-	-k ${SS_PASSWORD} \
-	-m ${SS_ENCRYPTION_METHOD}
+docker run -d --name shadowsocks \
+	-p 8118:8118 shadowsocks \
+		-b 0.0.0.0 \
+		-s ${SS_SERVER_ADDRESS} \
+		-p ${SS_SERVER_PORT} \
+		-l ${SS_SOCKS5_PORT} \
+		-k ${SS_PASSWORD} \
+		-m ${SS_ENCRYPTION_METHOD}
 ```
 
 ## Start a container with access to proxy 
