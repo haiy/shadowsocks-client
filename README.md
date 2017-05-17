@@ -1,31 +1,26 @@
-**docker-sslocal** with support for Chacha20
-==================
+# Shadowsocks/Privoxy Docker container
+Fork of [fangqiuming/docker-sslocal](https://github.com/fangqiuming/docker-sslocal)
 
-This repository forked from [zhenkyle/docker-sslocal](https://hub.docker.com/r/zhenkyle/docker-sslocal/), added support for Chacha20. The container will run a ![SS](http://i.imgur.com/cje394U.png) client and expose a socks5 proxy on a local port.
+This launches a shadowsocks sslocal client and privoxy http_proxy in a container.
+Containers linking to this container can use http_proxy to bypass firewalls.
 
-Quick Start
------------
-Use entrypoint to config your container.
+## Building and running
+```
+docker build -t shadowsocks .
+docker run -d -p 8118:8118 shadowsocks \
+	-b 0.0.0.0 \
+	-s $SS_SERVER_ADDRESS \
+	-p $SS_SERVER_PORT \
+	-l $SOCKS5_PORT \
+	-k $SS_PASSWORD \
+	-m ENCRYPTION_METHOD
+```
 
-    docker run -d -p $SOCKS5_PORT:$SOCKS5_PORT wldf/docker-sslocal \
-                    -b 0.0.0.0 \
-                    -s $SS_SERVER_ADDRESS \
-                    -p $SS_SERVER_PORT \
-                    -l $SOCKS5_PORT \
-                    -k $SS_PASSWORD \
-                    -m ENCRYPTION_METHOD
-
-　　  
-This is a example, socks5 proxy will start listening on port 1080.
-
-
-    docker run -d -p $1080:$1080 wldf/docker-sslocal \
-                    -b 0.0.0.0 \
-                    -s 9.9.9.9 \
-                    -p 1984 \
-                    -l 1090 \
-                    -k 1024 \
-                    -m chacha20
-
------------
-For more information, see [zhenkyle/docker-sslocal](https://github.com/zhenkyle/docker-sslocal).
+## Start a container with access to proxy 
+```
+docker run -it --link shadowsocks \
+	-e http_proxy=http://shadowsocks:8118 \
+	-e https_proxy=http://shadowsocks:8118 \
+	ubuntu:14.04 bash
+```
+  

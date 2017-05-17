@@ -2,9 +2,11 @@ FROM jreckner/docker-libsodium:1.0.10
 MAINTAINER Fang Qiuming <fangqiuming@outlook.com>
 
 RUN apt-get update && \
-    apt-get install -y python-pip
-RUN pip install shadowsocks==2.8.2
+    apt-get install -y python-pip privoxy 
+RUN pip install shadowsocks
 RUN echo /usr/local/lib > /etc/ld.so.conf.d/usr_local_lib.conf && ldconfig
 
+ADD config /etc/privoxy/config
+ADD entrypoint.sh /root/entrypoint.sh
 # Configure container to run as an executable
-ENTRYPOINT ["/usr/local/bin/sslocal"]
+ENTRYPOINT ["/root/entrypoint.sh"]
