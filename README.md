@@ -1,11 +1,18 @@
-# Shadowsocks/Privoxy Docker container
-Fork of [fangqiuming/docker-sslocal](https://github.com/fangqiuming/docker-sslocal) but with the addition of privoxy http proxy.
+# docker-shadowsocks-client
 
-## Building and running
+Shadowsocks client with HTTP proxy and support for salsa20/chacha20.
+
+Exposes a privoxy HTTP proxy which can be set as system proxy or 
+used by other docker containers that need proxying through shaodowsocks.
+
+Also check out the compatible [docker-shadowsocks-server](https://github.com/tedostrem/docker-shadowsocks-server)
+
+## Running
 ```
-docker build -t shadowsocks .
-docker run -d --name shadowsocks \
-	-p 8118:8118 shadowsocks \
+docker run -d \
+	--name shadowsocks-client \
+	-p ${HTTP_PROXY_PORT}:8118 
+	tedostrem/shadowsocks-client \
 		-b 0.0.0.0 \
 		-s ${SS_SERVER_ADDRESS} \
 		-p ${SS_SERVER_PORT} \
@@ -14,11 +21,10 @@ docker run -d --name shadowsocks \
 		-m ${SS_ENCRYPTION_METHOD}
 ```
 
-## Start a container with access to proxy 
+## Start a container with access to proxy example
 ```
-docker run -it --link shadowsocks \
+docker run -it --link shadowsocks-client \
 	-e http_proxy=shadowsocks:8118 \
 	-e https_proxy=shadowsocks:8118 \
 	ubuntu:14.04 bash
 ```
-  

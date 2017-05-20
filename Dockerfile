@@ -1,4 +1,4 @@
-FROM jreckner/docker-libsodium:1.0.10
+FROM jreckner/docker-libsodium
 MAINTAINER Ted Östrem <ted@t3d.one> 
 RUN apt-get update && \
     apt-get install -y python-pip privoxy 
