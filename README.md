@@ -1,6 +1,6 @@
 # shadowsocks-client
-https://img.shields.io/docker/automated/tedostrem/shadowsocks-client.svg
-https://img.shields.io/docker/build/tedostrem/shadowsocks-client.svg
+![](https://img.shields.io/docker/automated/tedostrem/shadowsocks-client.svg)
+![](https://img.shields.io/docker/build/tedostrem/shadowsocks-client.svg)
 
 Dockerized Shadowsocks client with HTTP proxy and support for salsa20/chacha20.
 
