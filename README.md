@@ -9,14 +9,14 @@ used by other docker containers that need proxying through shaodowsocks.
 
 Also check out the compatible [shadowsocks-server](https://github.com/tedostrem/shadowsocks-server)
 
-## Install proxy script
+## Install helper script
 ```
 $ edit ./proxy              # Insert your server details at the top of the file. 
 $ echo `make` >> ~/.bashrc  # Will install script to ~/bin and set your path accordingly.
 ```
 *You probbly want to persist your path in your .bashrc*
 
-## Proxy script usage
+## Helper script usage
 ```
 $ eval `proxy on`    # Will start shadowsocks-client container and set http_proxy environment variables.
 $ eval `proxy off`   # Removes container and unsets http_proxy environment variables.
