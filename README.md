@@ -18,6 +18,9 @@ $ eval `make`        # Will install script to ~/bin and set your path accordingl
 $ eval `proxy on`    # Will start shadowsocks-client container and set http_proxy environment variables.
 $ eval `proxy off`   # Removes container and unsets http_proxy environment variables.
 ```
+*The first time the script is run it will take some time to download image from
+docker hub. Output is redirected to /dev/null since stdout is used to eval 
+environment variables once container is started.*
 
 ## Run a proxied docker container
 ```
