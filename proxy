@@ -20,14 +20,14 @@ then
 			-l 1080 \
 			-k ${SS_PASSWORD} \
 			-m ${SS_ENCRYPTION_METHOD} &> /dev/null
-	printf "export http_proxy=localhost:${HTTP_PROXY_PORT} https_proxy=localhost:${HTTP_PROXY_PORT} no_proxy=localhost,127.0.0.0/8,::1"
+	echo "export http_proxy=localhost:${HTTP_PROXY_PORT} https_proxy=localhost:${HTTP_PROXY_PORT} no_proxy=localhost,127.0.0.0/8,::1"
 fi
 if [ "$1" == "off" ];
 then
 	docker rm -f shadowsocks-client &> /dev/null || true
-	printf "unset http_proxy https_proxy"
+	echo "unset http_proxy https_proxy"
 fi
 if [ "$1" == "docker" ];
 then
-	printf "--link shadowsocks-client -e http_proxy=shadowsocks-client:${HTTP_PROXY_PORT} -e https_proxy=shadowsocks-client:${HTTP_PROXY_PORT}"
+	echo "--link shadowsocks-client -e http_proxy=shadowsocks-client:${HTTP_PROXY_PORT} -e https_proxy=shadowsocks-client:${HTTP_PROXY_PORT}"
 fi
