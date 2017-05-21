@@ -49,5 +49,5 @@ docker run -d \
 docker run -it --link shadowsocks-client \
 	-e http_proxy=shadowsocks:8118 \
 	-e https_proxy=shadowsocks:8118 \
-	ubuntu:14.04 bash
+	centos bash
 ```
