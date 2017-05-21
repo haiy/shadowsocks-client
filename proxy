@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -eu
+SS_SERVER_ADDRESS=
+SS_SERVER_PORT=
+SS_PASSWORD=
+SS_ENCRYPTION_METHOD=salsa20
+SOCKS5_PROXY_PORT=1080
+HTTP_PROXY_PORT=8118
+
+if [ "$1" == "on" ];
+then
+	docker rm -f shadowsocks-client &> /dev/null || true
+	docker run -d --name shadowsocks-client \
+		-p ${SOCKS5_PROXY_PORT}:1080 \
+		-p ${HTTP_PROXY_PORT}:8118 \
+		tedostrem/shadowsocks-client \
+			-b 0.0.0.0 \
+			-s ${SS_SERVER_ADDRESS} \
+			-p ${SS_SERVER_PORT} \
+			-l 1080 \
+			-k ${SS_PASSWORD} \
+			-m ${SS_ENCRYPTION_METHOD} &> /dev/null
+	printf "export http_proxy=localhost:${HTTP_PROXY_PORT} https_proxy=localhost:${HTTP_PROXY_PORT} no_proxy=localhost,127.0.0.0/8,::1"
+fi
+if [ "$1" == "off" ];
+then
+	docker rm -f shadowsocks-client &> /dev/null || true
+	printf "unset http_proxy https_proxy"
+fi
+if [ "$1" == "docker" ];
+then
+	printf "--link shadowsocks-client -e http_proxy=shadowsocks-client:${HTTP_PROXY_PORT} -e https_proxy=shadowsocks-client:${HTTP_PROXY_PORT}"
+fi

@@ -7,7 +7,24 @@ used by other docker containers that need proxying through shaodowsocks.
 
 Also check out the compatible [docker-shadowsocks-server](https://github.com/tedostrem/docker-shadowsocks-server)
 
-## Running
+## Install proxy script
+```
+$ edit ./proxy       # Insert your server details at the top of the file. 
+$ eval `make`        # Will install script to ~/bin and set your path accordingly.
+```
+
+## Proxy script usage
+```
+$ eval `proxy on`    # Will start shadowsocks-client container and set http_proxy environment variables.
+$ eval `proxy off`   # Removes container and unsets http_proxy environment variables.
+```
+
+## Run a proxied docker container
+```
+$ docker run -it `proxy docker` ubuntu:14.04 bash # Runs a proxied docker container. 
+```
+
+## Running manually
 ```
 docker run -d \
 	--name shadowsocks-client \
@@ -21,7 +38,7 @@ docker run -d \
 		-m ${SS_ENCRYPTION_METHOD}
 ```
 
-## Start a container with access to proxy example
+## Manually start a container with access to proxy example
 ```
 docker run -it --link shadowsocks-client \
 	-e http_proxy=shadowsocks:8118 \
