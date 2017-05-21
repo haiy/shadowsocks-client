@@ -11,7 +11,7 @@ Also check out the compatible [shadowsocks-server](https://github.com/tedostrem/
 
 ## Install proxy script
 ```
-$ edit ./proxy       				# Insert your server details at the top of the file. 
+$ edit ./proxy              # Insert your server details at the top of the file. 
 $ echo `make` >> ~/.bashrc  # Will install script to ~/bin and set your path accordingly.
 ```
 *You probbly want to persist your path in your .bashrc*
