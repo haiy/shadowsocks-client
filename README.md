@@ -43,7 +43,7 @@ docker run -d \
 		-m ${SS_ENCRYPTION_METHOD}
 ```
 
-## Manually start a container with access to proxy example
+## Manually run a proxied container
 ```
 docker run -it --link shadowsocks-client \
 	-e http_proxy=shadowsocks:8118 \
