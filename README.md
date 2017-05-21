@@ -1,11 +1,11 @@
-# docker-shadowsocks-client
+# shadowsocks-client
 
-Shadowsocks client with HTTP proxy and support for salsa20/chacha20.
+Dockerized Shadowsocks client with HTTP proxy and support for salsa20/chacha20.
 
 Exposes a privoxy HTTP proxy which can be set as system proxy or 
 used by other docker containers that need proxying through shaodowsocks.
 
-Also check out the compatible [docker-shadowsocks-server](https://github.com/tedostrem/docker-shadowsocks-server)
+Also check out the compatible [shadowsocks-server](https://github.com/tedostrem/shadowsocks-server)
 
 ## Install proxy script
 ```
