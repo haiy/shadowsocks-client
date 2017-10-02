@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -e
 SS_SERVER_ADDRESS=
 SS_SERVER_PORT=
 SS_PASSWORD=
@@ -7,8 +7,15 @@ SS_ENCRYPTION_METHOD=salsa20
 SOCKS5_PROXY_PORT=1080
 HTTP_PROXY_PORT=8118
 
-if [ "$1" == "on" ];
-then
+function logs_shadowsocks-client() {
+	docker logs -f shadowsocks-client
+}
+
+function rm_shadowsocks-client() {
+	docker rm -f shadowsocks-client &> /dev/null || true
+}
+
+function run_shadowsocks-client() {
 	docker rm -f shadowsocks-client &> /dev/null || true
 	docker run -d --name shadowsocks-client \
 		-p ${SOCKS5_PROXY_PORT}:1080 \
@@ -20,14 +27,62 @@ then
 			-l 1080 \
 			-k ${SS_PASSWORD} \
 			-m ${SS_ENCRYPTION_METHOD} &> /dev/null
+}
+
+function gproxy_on() {
+	gsettings set org.gnome.system.proxy.http host 'localhost'
+	gsettings set org.gnome.system.proxy.http port ${HTTP_PROXY_PORT}
+	gsettings set org.gnome.system.proxy.https host 'localhost'
+	gsettings set org.gnome.system.proxy.https port ${HTTP_PROXY_PORT}
+	gsettings set org.gnome.system.proxy.ftp host 'localhost'
+	gsettings set org.gnome.system.proxy.ftp port ${HTTP_PROXY_PORT}
+	gsettings set org.gnome.system.proxy mode 'manual'
+}
+
+function gproxy_off() {
+	gsettings set org.gnome.system.proxy mode 'none'
+}
+
+function proxy_on() {
 	echo "export http_proxy=localhost:${HTTP_PROXY_PORT} https_proxy=localhost:${HTTP_PROXY_PORT} no_proxy=localhost,127.0.0.0/8,::1"
+}
+
+function proxy_off() {
+	echo "unset http_proxy https_proxy"
+}
+
+if [ -z "$1" ];
+then
+	echo "on,off,state,logs"
+	exit 0
+fi
+if [ "$1" == "on" ];
+then
+	rm_shadowsocks-client
+	run_shadowsocks-client
+	proxy_on
+	gproxy_on
 fi
 if [ "$1" == "off" ];
 then
-	docker rm -f shadowsocks-client &> /dev/null || true
-	echo "unset http_proxy https_proxy"
+	rm_shadowsocks-client
+	proxy_off
+	gproxy_off
 fi
 if [ "$1" == "docker" ];
 then
 	echo "--link shadowsocks-client -e http_proxy=shadowsocks-client:${HTTP_PROXY_PORT} -e https_proxy=shadowsocks-client:${HTTP_PROXY_PORT}"
+fi
+if [ "$1" == "logs" ];
+then
+	logs_shadowsocks-client
+fi
+if [ "$1" == "state" ];
+then
+	if [ "$(gsettings get org.gnome.system.proxy mode)" == "'manual'" ];
+	then
+		echo "ON"
+	else
+		echo "OFF"
+	fi
 fi
